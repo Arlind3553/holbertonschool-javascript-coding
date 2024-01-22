@@ -6,4 +6,4 @@ fs.writeFile(arg2, arg3, err => {
   if (err){
     console.log(err);
   }
-})
+});
