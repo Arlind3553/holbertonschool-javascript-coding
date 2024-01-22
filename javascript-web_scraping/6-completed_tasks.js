@@ -1,23 +1,26 @@
 #!/usr/bin/node
 const request = require('request');
-const apiCall = process.argv[2];
-request.get(apiCall, function (error, response, body) {
-  if (error) {
-    console.log(error);
-  }
-  const obj = {};
-  let isComplete = 0;
-  const data = JSON.parse(body);
-  for (const elem of data) {
-    isComplete = data.filter(
-      (todo) => todo.userId === elem.userId && todo.completed
-    ).length;
-    if (isComplete === 0) {
-      console.log(obj);
-      return;
-    } else {
-      obj[elem.userId] = isComplete;
+
+request(
+  'https://jsonplaceholder.typicode.com/todos',
+  (error, request, body) => {
+    if (error) {
+      console.log(error);
     }
+
+    const res = JSON.parse(body);
+    const completedTasks = {};
+
+    res.map((ele) => {
+      if (ele.completed) {
+        if (ele.userId in completedTasks) {
+          completedTasks[ele.userId] += 1;
+        } else {
+          completedTasks[ele.userId] = 1;
+        }
+      }
+    });
+
+    console.log(completedTasks);
   }
-  console.log(obj);
-});
+);
