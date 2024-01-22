@@ -1,9 +1,11 @@
 #!/usr/bin/node
-const request = require('request')
+const request = require('request');
+const process = require('process');
 
-request(process.argv[2], (error, response, body) => {
-  if (error) {
-    console.log(error);
-  }
-  console.log('code: ', response && response.statusCode);
-});
+const link = process.argv[2];
+
+request
+  .get(link)
+  .on('response', function (response) {
+    console.log('code: ' + response.statusCode);
+  });
