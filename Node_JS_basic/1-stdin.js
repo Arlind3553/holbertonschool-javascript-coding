@@ -1,3 +1,4 @@
+/*eslint-disable*/
 console.log('Welcome to Holberton School, what is your name?');
 const readline = require('readline').createInterface({
     input: process.stdin,
