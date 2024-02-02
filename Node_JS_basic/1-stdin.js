@@ -1,10 +1,10 @@
 /*eslint-disable*/
 console.log('Welcome to Holberton School, what is your name?');
-const readline = require('readline').createInterface({
-    input: process.stdin,
+process.stdin.on('data', (data) => {
+  process.stdout.write(`Your name is: ${data.toString()}`);
 });
-readline.question('', name => {
-    process.stdout.write('Your name is: ' + name + '\r');
-    console.log('This important software is now closing');
-    readline.close();
+
+process.stdin.on('close', () => {
+  console.log('This important software is now closing');
+  process.exit(0);
 });
